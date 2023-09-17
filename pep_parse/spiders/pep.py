@@ -1,5 +1,7 @@
-import scrapy
 import re
+
+import scrapy
+
 from ..items import PepParseItem
 from ..constants import ALLOWED_DOMAINS, START_URLS
 
