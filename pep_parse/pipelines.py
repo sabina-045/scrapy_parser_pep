@@ -1,7 +1,7 @@
 from collections import defaultdict
 import datetime as dt
 
-from .constants import DATETIME_FORMAT
+from .constants import DATETIME_FORMAT, BASE_DIR
 
 
 class PepParsePipeline:
@@ -17,7 +17,7 @@ class PepParsePipeline:
     def close_spider(self, spider):
         date_time = dt.datetime.now().strftime(DATETIME_FORMAT)
         total = sum(self.status_collection.values())
-        file_path = f'results/status_summary_{date_time}.csv'
+        file_path = BASE_DIR / f'results/status_summary_{date_time}.csv'
         with open(file_path, mode='w', encoding='utf-8') as f:
             f.write('Статус,Количество\n')
             f.write(f'Total, {total}\n')
