@@ -1,14 +1,14 @@
 from collections import defaultdict
 import datetime as dt
+import json
 
-from .constants import DATETIME_FORMAT, BASE_DIR
+from .constants import DATETIME_FORMAT, BASE_DIR, RESULTS
 
 
 class PepParsePipeline:
-    status_collection = defaultdict(int)
 
     def open_spider(self, spider):
-        pass
+        self.status_collection = defaultdict(int)
 
     def process_item(self, item, spider):
         self.status_collection[item['status']] += 1
@@ -17,9 +17,10 @@ class PepParsePipeline:
     def close_spider(self, spider):
         date_time = dt.datetime.now().strftime(DATETIME_FORMAT)
         total = sum(self.status_collection.values())
-        file_path = BASE_DIR / f'results/status_summary_{date_time}.csv'
+        results_dir = BASE_DIR / RESULTS
+        results_dir.mkdir(exist_ok=True)
+        file_path = results_dir / f'status_summary_{date_time}.csv'
         with open(file_path, mode='w', encoding='utf-8') as f:
-            f.write('Статус,Количество\n')
-            f.write(f'Total, {total}\n')
-            for key, value in self.status_collection.items():
-                f.write(f'{key}, {value}\n')
+            f.write(f'Статус,Количество\n'
+                    f'Total, {total}\n'
+                    f'{json.dumps(self.status_collection, indent=0)}\n')
