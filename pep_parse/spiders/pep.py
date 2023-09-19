@@ -12,7 +12,7 @@ class PepSpider(scrapy.Spider):
     start_urls = START_URLS
 
     def parse(self, response):
-        # сбор ссылок на документы
+        """Сбор ссылок на документы"""
         links_all = response.xpath(
             '//a[re:test(@href, "^pep-[0-9]{1,4}.$")]/@href'
         ).extract()
@@ -22,7 +22,7 @@ class PepSpider(scrapy.Spider):
             )
 
     def parse_pep(self, response):
-        # парсинг страниц и формированиe items
+        """Парсинг страниц и формированиe items"""
         name = response.xpath('//h1[@class="page-title"]/text()').get()
         number = re.search('[0-9]{1,4}', str(name)).group()
         data = {
