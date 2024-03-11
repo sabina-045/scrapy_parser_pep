@@ -1,4 +1,4 @@
-![Image alt](https://github.com/sabina-045/scrapy_parser_pep/raw/master/photo_2024-03-04_19-20-05.jpg)
+![Image alt](https://github.com/sabina-045/scrapy_parser_pep/master/photo_2024-03-04_19-20-05.jpg)
 
 ### Парсер, нужный каждому программисту
 + Чтобы ни одна новинка PEP не осталась вами не замеченой
